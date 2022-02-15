@@ -4,14 +4,14 @@ import Card from './components/Card';
 import cardImages from './components/cardImages';
 
 function App() {
-  const cardAmount = 6;
-  //const [cardAmount, setCardAmount] = useState(6);
+  const [cardAmount, setCardAmount] = useState(6);
   const [cards,setCards] = useState([]);
   const [turns,setTurns] = useState(0);
   const [choiceOne,setChoiceOne] = useState(null);
   const [choiceTwo,setChoiceTwo] = useState(null);
   const [cardDisabled,setCardDisabled] = useState(false);
 
+  //#region Scripts
   //Sets up the card deck
   const setupDeck = ()=>{
     //picks N random cards
@@ -32,6 +32,20 @@ function App() {
     setTurns(0);
   }
 
+  const handleCardAmount = (e)=>{
+    const cardInput = e.target;
+    const ok=
+      cardInput.value !== '' ? 
+      cardInput.value >= 2 && cardInput.value<=cardImages.length ?
+      true : false : false ;
+    if(ok){
+      setCardAmount(cardInput.value);
+      cardInput.style.color = "#fff";
+    }else{
+      setCardAmount(6);
+      cardInput.style.color = '#ed4337';  
+    }
+  }
   const handleChoice = (card)=>{
     choiceOne ? setChoiceTwo(card) : setChoiceOne(card);
   }
@@ -69,10 +83,12 @@ function App() {
   useEffect(()=>{
      setupDeck();
   },[])
-
+  //#endregion
+  
   return (
     <div className="App">
       <h1>Magic Match</h1>
+      <input className="card-input" type="text" onChange={handleCardAmount}/>
       <button onClick={setupDeck}>New Game</button>
       <div className="card-grid">
         {cards.map(card => (
