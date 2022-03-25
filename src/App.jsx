@@ -41,7 +41,7 @@ function App() {
     if(ok){
       setCardAmount(cardInput.value);
       cardInput.style.color = "#fff";
-    }else{
+    }else{ 
       setCardAmount(6);
       cardInput.style.color = '#ed4337';  
     }
